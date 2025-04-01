@@ -41,7 +41,7 @@ export default function Home() {
 
         <div className="mt-2">
           <button
-            className="bg-blue-500 text-sm font-medium text-white rounded px-3 py-2"
+            className="bg-blue-500 disabled:opacity-50 text-sm font-medium text-white rounded px-3 py-2"
             disabled={isLoading}
             type="submit"
           >
