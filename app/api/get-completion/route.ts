@@ -25,19 +25,21 @@ export async function POST(request: Request) {
 
   const heliconeLogBuilder = helicone.logBuilder(completionData);
 
-  const res = await together.chat.completions.create({
+  const togetherStream = await together.chat.completions.create({
     model: 'deepseek-ai/DeepSeek-R1',
     messages: [{ role: 'user', content: question }],
     stream: true,
   });
 
-  heliconeLogBuilder.attachStream(res);
+  const [responseStream, heliconeStream] = togetherStream.tee();
+
+  heliconeLogBuilder.attachStream(heliconeStream);
 
   after(async () => {
     await heliconeLogBuilder.sendLog();
   });
 
-  return new Response(res.toReadableStream());
+  return new Response(responseStream.toReadableStream());
 }
 
 export const maxDuration = 60;
