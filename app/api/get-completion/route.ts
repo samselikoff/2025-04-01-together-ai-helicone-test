@@ -39,3 +39,5 @@ export async function POST(request: Request) {
 
   return new Response(res.toReadableStream());
 }
+
+export const maxDuration = 60;
