@@ -31,6 +31,8 @@ export async function POST(request: Request) {
     stream: true,
   });
 
+  heliconeLogBuilder.attachStream(res);
+
   after(async () => {
     await heliconeLogBuilder.sendLog();
   });
